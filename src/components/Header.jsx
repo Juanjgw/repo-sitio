@@ -99,6 +99,9 @@ export const Header = ({
 								<span className='total-pagar'>${total}</span>
 							</div>
 
+							<button className='btn-confirmar-pedido' onClick={onCleanCart}>
+								Confirmar Pedido
+							</button>
 							<button className='btn-clear-all' onClick={onCleanCart}>
 								Vaciar Carrito
 							</button>
