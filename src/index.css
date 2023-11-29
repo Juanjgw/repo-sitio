@@ -240,4 +240,19 @@ header {
 		display: none;
 	}
 		  
+/* Estilos para el contenedor del logo */
+.logo-container {
+	display: flex;
+	position: relative;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 10px; /* Agrega un poco de espacio alrededor del logo */
+	margin-top: 0px; /* Ajusta el espacio desde la parte superior según tus necesidades */
+  }
   
+  /* Ajusta el tamaño del logo en relación con el icono-cart */
+  .logo-container img {
+	max-width: 10rem; /* Ajusta según tus necesidades */
+	height: auto;
+	margin-right: 10px; /* Agrega espacio entre el icono y el logo si es necesario */
+  }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import logoEra from '/logos/logoEraBajo.png';
 export const Header = ({
 	allProducts,
 	setAllProducts,
@@ -28,7 +28,11 @@ export const Header = ({
 
 	return (
 		<header>
-			<h1>Tienda</h1>
+			<>
+				<div className="logo-container">
+					<img src={logoEra} alt="Logo de la empresa" />
+				</div>
+			</>
 
 			<div className='container-icon'>
 				<div
@@ -55,9 +59,8 @@ export const Header = ({
 				</div>
 
 				<div
-					className={`container-cart-products ${
-						active ? '' : 'hidden-cart'
-					}`}
+					className={`container-cart-products ${active ? '' : 'hidden-cart'
+						}`}
 				>
 					{allProducts.length ? (
 						<>
