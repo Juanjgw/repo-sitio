@@ -1,41 +1,46 @@
 import { useState } from 'react';
 import logoEra from '/logos/logoEraBajo.png';
+
 export const Header = ({
-	allProducts,
-	setAllProducts,
-	total,
-	countProducts,
-	setCountProducts,
-	setTotal,
+  allProducts,
+  setAllProducts,
+  total,
+  countProducts,
+  setCountProducts,
+  setTotal,
 }) => {
-	const [active, setActive] = useState(false);
+  const [active, setActive] = useState(false);
 
-	const onDeleteProduct = product => {
-		const results = allProducts.filter(
-			item => item.id !== product.id
-		);
+  const onDeleteProduct = (product) => {
+    const results = allProducts.filter((item) => item.id !== product.id);
 
-		setTotal(total - product.price * product.quantity);
-		setCountProducts(countProducts - product.quantity);
-		setAllProducts(results);
-	};
+    setTotal(total - product.price * product.quantity);
+    setCountProducts(countProducts - product.quantity);
+    setAllProducts(results);
+  };
 
-	const onCleanCart = () => {
-		setAllProducts([]);
-		setTotal(0);
-		setCountProducts(0);
-	};
+  const onCleanCart = () => {
+    setAllProducts([]);
+    setTotal(0);
+    setCountProducts(0);
+  };
 
-	return (
-		<header>
-			<>
-				<div className="logo-container">
-					<img src={logoEra} alt="Logo de la empresa" />
-				</div>
-			</>
+  const onQuantityChange = (product, newQuantity) => {
+    const updatedProducts = allProducts.map((item) =>
+      item.id === product.id ? { ...item, quantity: newQuantity } : item
+    );
 
-			<div className='container-icon'>
-				<div
+    setAllProducts(updatedProducts);
+  };
+
+  return (
+    <header>
+      <div className="logo-container">
+        <img src={logoEra} alt="Logo de la empresa" />
+      </div>
+
+      <div className='container-icon'>
+        <div
 					className='container-cart-icon'
 					onClick={() => setActive(!active)}
 				>
@@ -59,45 +64,51 @@ export const Header = ({
 				</div>
 
 				<div
-					className={`container-cart-products ${active ? '' : 'hidden-cart'
-						}`}
-				>
-					{allProducts.length ? (
-						<>
-							<div className='row-product'>
-								{allProducts.map(product => (
-									<div className='cart-product' key={product.id}>
-										<div className='info-cart-product'>
-											<span className='cantidad-producto-carrito'>
-												{product.quantity}
-											</span>
-											<p className='titulo-producto-carrito'>
-												{product.nameProduct}
-											</p>
-											<span className='precio-producto-carrito'>
-												${product.price}
-											</span>
-										</div>
-										<svg
-											xmlns='http://www.w3.org/2000/svg'
-											fill='none'
-											viewBox='0 0 24 24'
-											strokeWidth='1.5'
-											stroke='currentColor'
-											className='icon-close'
-											onClick={() => onDeleteProduct(product)}
-										>
-											<path
-												strokeLinecap='round'
-												strokeLinejoin='round'
-												d='M6 18L18 6M6 6l12 12'
-											/>
-										</svg>
-									</div>
-								))}
-							</div>
+          className={`container-cart-products ${active ? '' : 'hidden-cart'
+          }`}
+        >
+          {allProducts.length ? (
+            <>
+              <div className='row-product'>
+                {allProducts.map((product) => (
+                  <div className='cart-product' key={product.id}>
+                    <div className='info-cart-product'>
+                      <input
+                        type='number'
+                        value={product.quantity}
+                        onChange={(e) =>
+                          onQuantityChange(product, e.target.value)
+                          
+                        }
+                        min='1'
+                      />
+                      <p className='titulo-producto-carrito'>
+                        {product.nameProduct}
+                      </p>
+                      <span className='precio-producto-carrito'>
+                        ${product.price}
+                      </span>
+                    </div>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      strokeWidth='1.5'
+                      stroke='currentColor'
+                      className='icon-close'
+                      onClick={() => onDeleteProduct(product)}
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M6 18L18 6M6 6l12 12'
+                      />
+                    </svg>
+                  </div>
+                ))}
+              </div>
 
-							<div className='cart-total'>
+              <div className='cart-total'>
 								<h3>Total:</h3>
 								<span className='total-pagar'>${total}</span>
 							</div>
@@ -108,14 +119,12 @@ export const Header = ({
 							<button className='btn-clear-all' onClick={onCleanCart}>
 								Vaciar Carrito
 							</button>
-						</>
-					) : (
-						<p className='cart-empty'>El carrito está vacío</p>
-					)}
-				</div>
-			</div>
-		</header>
-	);
+            </>
+          ) : (
+            <p className='cart-empty'>El carrito está vacío</p>
+          )}
+        </div>
+      </div>
+    </header>
+  );
 };
-
-
