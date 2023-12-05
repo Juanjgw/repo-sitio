@@ -154,6 +154,12 @@ header {
 	gap: 10px;
   }
   
+.input-quantity{
+	width: 17%;
+	
+  }
+  
+
   .price {
 	font-size: 18px;
 	font-weight: 900;

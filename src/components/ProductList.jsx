@@ -7,6 +7,8 @@ export const ProductList = ({
 	setCountProducts,
 	total,
 	setTotal,
+	total2,
+	acumulador,
 }) => {
 	const onAddProduct = product => {
 		if (allProducts.find(item => item.id === product.id)) {
@@ -17,14 +19,22 @@ export const ProductList = ({
 			);
 			setTotal(total + product.price * product.quantity);
 			setCountProducts(countProducts + product.quantity);
+			const total2 = allProducts.reduce(
+				(acumulador, producto) => acumulador + producto.price * producto.quantity,
+				0
+			  );
+			  console.log(total2);
+			//console.log	(allProducts);
 			return setAllProducts([...products]);
+				
 		}
 
 		setTotal(total + product.price * product.quantity);
 		setCountProducts(countProducts + product.quantity);
 		setAllProducts([...allProducts, product]);
+		//console.log	(allProducts);
 	};
-
+	console.log	(allProducts);
 	return (
 		<div className='container-items'>
 			{data.map(product => (

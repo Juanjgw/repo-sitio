@@ -8,14 +8,16 @@ export const Header = ({
   countProducts,
   setCountProducts,
   setTotal,
+  total2,
+  acumulador,
 }) => {
   const [active, setActive] = useState(false);
 
   const onDeleteProduct = (product) => {
     const results = allProducts.filter((item) => item.id !== product.id);
 
-    setTotal(total - product.price * product.quantity);
-    setCountProducts(countProducts - product.quantity);
+    //setTotal(total - product.price * product.quantity);
+    //setCountProducts(countProducts - product.quantity);
     setAllProducts(results);
   };
 
@@ -28,9 +30,22 @@ export const Header = ({
   const onQuantityChange = (product, newQuantity) => {
     const updatedProducts = allProducts.map((item) =>
       item.id === product.id ? { ...item, quantity: newQuantity } : item
-    );
-
+      
+      );
+      product.quantity=newQuantity
+      const total2 = allProducts.reduce(
+        (acumulador, producto) => acumulador + producto.price * producto.quantity,
+        0
+      );
+      console.log(total2);
+  
+    //setCountProducts(countProducts + newQuantity);
+    setAllProducts([...allProducts, product]);
+    
     setAllProducts(updatedProducts);
+    setTotal(product.price * newQuantity);
+    console.log(total2);
+    console.log	(allProducts);
   };
 
   return (
@@ -73,7 +88,7 @@ export const Header = ({
                 {allProducts.map((product) => (
                   <div className='cart-product' key={product.id}>
                     <div className='info-cart-product'>
-                      <input
+                      <input className='input-quantity'
                         type='number'
                         value={product.quantity}
                         onChange={(e) =>
@@ -108,9 +123,10 @@ export const Header = ({
                 ))}
               </div>
 
+
               <div className='cart-total'>
 								<h3>Total:</h3>
-								<span className='total-pagar'>${total}</span>
+								<span className='total-pagar'>${total2}</span>
 							</div>
 
 							<button className='btn-confirmar-pedido' onClick={onCleanCart}>
