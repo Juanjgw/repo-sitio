@@ -16,8 +16,7 @@ export const Header = ({
   const onDeleteProduct = (product) => {
     const results = allProducts.filter((item) => item.id !== product.id);
 
-    //setTotal(total - product.price * product.quantity);
-    //setCountProducts(countProducts - product.quantity);
+    
     setAllProducts(results);
   };
 
