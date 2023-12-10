@@ -25,7 +25,16 @@ export const Header = ({
     setTotal(0);
     setCountProducts(0);
   };
-
+  const listaDeProductos = (productos) => {
+    return productos.map((producto) => producto.nameProduct).join(', ');
+  };
+  const enviarMensajeWhatsApp = () => {
+    const mensaje = `¡Hola! Quiero hacer un pedido con los siguientes productos: ${listaDeProductos(allProducts)}. Total: $${total2}`;
+    const numeroTelefono = '5491158536622';
+  
+    const enlaceWhatsApp = `https://wa.me/${numeroTelefono}/?text=${encodeURIComponent(mensaje)}`;
+    window.location.href = enlaceWhatsApp;
+  };
   const onQuantityChange = (product, newQuantity) => {
     const updatedProducts = allProducts.map((item) =>
       item.id === product.id ? { ...item, quantity: newQuantity } : item
@@ -44,7 +53,7 @@ export const Header = ({
     setAllProducts(updatedProducts);
     setTotal(product.price * newQuantity);
     console.log(total2);
-    console.log	(allProducts);
+       console.log	(allProducts);
   };
 
   return (
@@ -122,13 +131,17 @@ export const Header = ({
                 ))}
               </div>
 
-
               <div className='cart-total'>
-								<h3>Total:</h3>
-								<span className='total-pagar'>${total2}</span>
-							</div>
+								<h3>total:</h3>
+								               
+                
+                  <span className='total-pagar'>${total}</span>
+                                  
 
-							<button className='btn-confirmar-pedido' onClick={onCleanCart}>
+							</div>
+              
+
+							<button className='btn-confirmar-pedido' onClick={enviarMensajeWhatsApp}>
 								Confirmar Pedido
 							</button>
 							<button className='btn-clear-all' onClick={onCleanCart}>
@@ -138,7 +151,9 @@ export const Header = ({
           ) : (
             <p className='cart-empty'>El carrito está vacío</p>
           )}
+        
         </div>
+        
       </div>
     </header>
   );
