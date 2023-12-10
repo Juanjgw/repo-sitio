@@ -1,29 +1,31 @@
-import { useState } from 'react';
 import { Header } from './components/Header';
 import { ProductList } from './components/ProductList';
+import useCart from './hooks/useCart';
 
 function App() {
-	const [allProducts, setAllProducts] = useState([]);
-	const [total, setTotal] = useState(0);
-	const [countProducts, setCountProducts] = useState(0);
+	const { 
+		products, 
+		total, 
+		countProducts, 
+		clearCart,
+		changeQuantity,
+		addProduct,
+		deleteProduct,
+		checkoutCart } = useCart();
 
 	return (
 		<>
 			<Header
-				allProducts={allProducts}
-				setAllProducts={setAllProducts}
+				products={products}
 				total={total}
-				setTotal={setTotal}
 				countProducts={countProducts}
-				setCountProducts={setCountProducts}
+				clearCart={clearCart}
+				changeQuantity={changeQuantity}
+				deleteProduct={deleteProduct}
+				checkoutCart={checkoutCart}
 			/>
 			<ProductList
-				allProducts={allProducts}
-				setAllProducts={setAllProducts}
-				total={total}
-				setTotal={setTotal}
-				countProducts={countProducts}
-				setCountProducts={setCountProducts}
+				addProduct={addProduct}
 			/>
 		</>
 	);

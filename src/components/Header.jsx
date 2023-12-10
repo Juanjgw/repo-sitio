@@ -2,58 +2,30 @@ import { useState } from 'react';
 import logoEra from '/logos/logoEraBajo.png';
 
 export const Header = ({
-  allProducts,
-  setAllProducts,
+  products,
   total,
   countProducts,
-  setCountProducts,
-  setTotal,
-  total2,
-  acumulador,
+  clearCart,
+  changeQuantity,
+  deleteProduct,
+  checkoutCart
 }) => {
   const [active, setActive] = useState(false);
 
   const onDeleteProduct = (product) => {
-    const results = allProducts.filter((item) => item.id !== product.id);
-
-   
-    setAllProducts(results);
+    deleteProduct(product);
   };
 
   const onCleanCart = () => {
-    setAllProducts([]);
-    setTotal(0);
-    setCountProducts(0);
+    clearCart();
   };
-  const listaDeProductos = (productos) => {
-    return productos.map((producto) => producto.nameProduct).join(', ');
-  };
+
   const enviarMensajeWhatsApp = () => {
-    const mensaje = `¡Hola! Quiero hacer un pedido con los siguientes productos: ${listaDeProductos(allProducts)}. Total: $${total2}`;
-    const numeroTelefono = '5491158536622';
-  
-    const enlaceWhatsApp = `https://wa.me/${numeroTelefono}/?text=${encodeURIComponent(mensaje)}`;
-    window.location.href = enlaceWhatsApp;
+    checkoutCart();
   };
+
   const onQuantityChange = (product, newQuantity) => {
-    const updatedProducts = allProducts.map((item) =>
-      item.id === product.id ? { ...item, quantity: newQuantity } : item
-      
-      );
-      product.quantity=newQuantity
-      const total2 = allProducts.reduce(
-        (acumulador, producto) => acumulador + producto.price * producto.quantity,
-        0
-      );
-      console.log(total2);
-  
-    //setCountProducts(countProducts + newQuantity);
-    setAllProducts([...allProducts, product]);
-    
-    setAllProducts(updatedProducts);
-    setTotal(product.price * newQuantity);
-    console.log(total2);
-       console.log	(allProducts);
+    changeQuantity(product, newQuantity);
   };
 
   return (
@@ -90,10 +62,10 @@ export const Header = ({
           className={`container-cart-products ${active ? '' : 'hidden-cart'
           }`}
         >
-          {allProducts.length ? (
+          {products.length ? (
             <>
               <div className='row-product'>
-                {allProducts.map((product) => (
+                {products.map((product) => (
                   <div className='cart-product' key={product.id}>
                     <div className='info-cart-product'>
                       <input className='input-quantity'
@@ -101,7 +73,6 @@ export const Header = ({
                         value={product.quantity}
                         onChange={(e) =>
                           onQuantityChange(product, e.target.value)
-                          
                         }
                         min='1'
                       />
