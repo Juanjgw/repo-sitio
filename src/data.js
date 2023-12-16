@@ -5,6 +5,7 @@ export const data = [
 		nameProduct: 'Zapatos Nike',
 		price: 80,
 		quantity: 1,
+		stock: 2,
 	},
 	{
 		id: 2,
@@ -12,6 +13,7 @@ export const data = [
 		nameProduct: 'Reloj',
 		price: 50,
 		quantity: 1,
+		stock: 10,
 	},
 	{
 		id: 3,
@@ -19,6 +21,7 @@ export const data = [
 		nameProduct: 'Smartwatch',
 		price: 90,
 		quantity: 1,
+		stock: 5,
 	},
 	{
 		id: 4,
@@ -26,6 +29,7 @@ export const data = [
 		nameProduct: 'Perfume',
 		price: 50,
 		quantity: 1,
+		stock: 3,
 	},
 	{
 		id: 5,
@@ -33,6 +37,7 @@ export const data = [
 		nameProduct: 'Audifonos',
 		price: 20,
 		quantity: 1,
+		stock: 4,
 	},
 	// Aquí pueden agregar más o modificar los productos existentes
 ];

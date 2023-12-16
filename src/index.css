@@ -164,7 +164,11 @@ header {
 	font-size: 18px;
 	font-weight: 900;
   }
-  
+  .stock {
+	font-size: 18px;
+	font-weight: 900;
+  }
+
   .info-product button {
 	border: none;
 	background: none;

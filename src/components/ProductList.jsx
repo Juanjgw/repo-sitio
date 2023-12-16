@@ -16,6 +16,7 @@ export const ProductList = ({ addProduct }) => {
 					<div className='info-product'>
 						<h2>{product.nameProduct}</h2>
 						<p className='price'>${product.price}</p>
+						<p className='stock'>Disponibles: {product.stock}</p>
 						<button onClick={() => handleAddProduct(product)}>
 							Añadir al carrito
 						</button>
