@@ -9,38 +9,54 @@ const useCart = () => {
         acum + (product.quantity * product.price), 0)
     : 0;
 
-
-
-    const countProducts = Array.isArray(products)
+  const countProducts = Array.isArray(products)
     ? products.reduce((acum, product) =>
         acum + parseFloat(product.quantity), 0)
     : 0;  
 
   const clearCart = () =>
-    setProducts([])
+    setProducts([]);
 
   const addProduct = (newProduct) => {
-    if (products.some(item => item.id === newProduct.id)) {
-      
-      const updatedProducts = products.map(item =>
-				item.id === newProduct.id
-					? { ...item, quantity: item.quantity + 1 }
-					: item
-			);
-      setProducts(updatedProducts);
-
+    // Verificar si la cantidad a agregar está disponible según el stock
+    const availableStock = newProduct.stock - newProduct.quantity; // Calcular stock disponible
+    console.log(availableStock);
+    //console.log("new cantidad",{newQuantity});
+    if (availableStock >= 0) {
+      // Si hay suficiente stock, agregar el producto al carrito
+      if (products.some(item => item.id === newProduct.id)) {
+        const updatedProducts = products.map(item =>
+          item.id === newProduct.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+        setProducts(updatedProducts);
+      } else {
+        setProducts([...products, { ...newProduct, quantity: 1 }]);
+      }
     } else {
-      setProducts([ ...products, newProduct ]);  
+      // No hay suficiente stock, puedes manejar esto de alguna manera (por ejemplo, mostrar un mensaje de error)
+      console.error('No hay suficiente stock disponible.');
     }
-  }
+  };
 
   const changeQuantity = (product, newQuantity) => {
-
-    const updatedProducts = products.map(item =>
-      item.id === product.id
-        ? { ...item, quantity: newQuantity }
-        : item
-    );
+    const updatedProducts = products.map(item => {
+      if (item.id === product.id) {
+        const availableStock = item.stock - newQuantity;
+        console.log(availableStock);
+        console.log("new cantidad",{newQuantity});
+        
+        if (availableStock >= 0) {
+          return { ...item, quantity: newQuantity };
+        } else {
+          console.log('No hay suficiente stock disponible.');
+          return item; // Mantener la cantidad actual si no hay suficiente stock
+        }
+      } else {
+        return item;
+      }
+    });
 
     setProducts(updatedProducts);
   };
@@ -58,7 +74,7 @@ const useCart = () => {
   
     const enlaceWhatsApp = `https://wa.me/${numeroTelefono}/?text=${encodeURIComponent(mensaje)}`;
     window.location.href = enlaceWhatsApp;
-  }
+  };
 
   return {
     products,
@@ -70,7 +86,7 @@ const useCart = () => {
     addProduct,
     deleteProduct,
     checkoutCart
-  }
+  };
 }
 
-export default useCart
+export default useCart;
