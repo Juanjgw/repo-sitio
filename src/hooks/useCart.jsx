@@ -9,10 +9,12 @@ const useCart = () => {
         acum + (product.quantity * product.price), 0)
     : 0;
 
-  const countProducts = Array.isArray(products)
-      ? products.reduce((acum, product) =>
-          acum + product.quantity, 0)
-      : 0;
+
+
+    const countProducts = Array.isArray(products)
+    ? products.reduce((acum, product) =>
+        acum + parseFloat(product.quantity), 0)
+    : 0;  
 
   const clearCart = () =>
     setProducts([])
