@@ -37,7 +37,7 @@ export const data = [
 		nameProduct: 'Audifonos',
 		price: 20,
 		quantity: 1,
-		stock: 4,
+		stock: 0,
 	},
 	// Aquí pueden agregar más o modificar los productos existentes
 ];

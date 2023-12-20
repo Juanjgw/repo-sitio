@@ -16,31 +16,32 @@ const useCart = () => {
 
   const clearCart = () =>
     setProducts([]);
-
-  const addProduct = (newProduct) => {
-    // Verificar si la cantidad a agregar está disponible según el stock
-    const availableStock = newProduct.stock - newProduct.quantity; // Calcular stock disponible
-    console.log(availableStock);
-    //console.log("new cantidad",{newQuantity});
-    if (availableStock >= 0) {
-      // Si hay suficiente stock, agregar el producto al carrito
+    const addProduct = (newProduct) => {
+      const availableStock = newProduct.stock - newProduct.quantity; // Calcular stock disponible
+      console.log(availableStock);
       if (products.some(item => item.id === newProduct.id)) {
+        console.log('if verdadero');
         const updatedProducts = products.map(item =>
           item.id === newProduct.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
         setProducts(updatedProducts);
+  
       } else {
-        setProducts([...products, { ...newProduct, quantity: 1 }]);
+        if (availableStock >= 0) {
+          console.log('else');
+        setProducts([ ...products, newProduct ]);  
       }
-    } else {
-      // No hay suficiente stock, puedes manejar esto de alguna manera (por ejemplo, mostrar un mensaje de error)
-      console.error('No hay suficiente stock disponible.');
-    }
-  };
+      else {
+        // No hay suficiente stock, puedes manejar esto de alguna manera (por ejemplo, mostrar un mensaje de error)
+        console.log('No hay suficiente stock disponible.');
+      }
+      
 
-  const changeQuantity = (product, newQuantity) => {
+    }
+    }
+ const changeQuantity = (product, newQuantity) => {
     const updatedProducts = products.map(item => {
       if (item.id === product.id) {
         const availableStock = item.stock - newQuantity;
